@@ -25,12 +25,25 @@ struct ItemDetail: View {
             }
             Text(item.description)
                 .padding()
-            Button("Order This") {
+            Button("Add to Order") {
                 self.order.add(item: self.item)
             }.font(.headline)
+            .padding()
+                .foregroundColor(.white)
+                .background(Color.blue)
+                .cornerRadius(5)
             Spacer()
         }
         .navigationBarTitle(Text(item.name), displayMode: .inline)
+
+        .navigationBarItems(trailing:
+            Button(action: {
+                self.order.favorites.append(self.item)
+            }) {
+                Image(systemName: "heart")
+                    .font(.headline)
+            }
+        )
     }
 }
 

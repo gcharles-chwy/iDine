@@ -16,8 +16,11 @@ struct CheckoutView: View {
     @State private var loyaltyNumber = ""
     @State private var tipAmount = 1
     @State private var showingPaymentAlert = false
+    @State private var pickupTime = 0
 
     static let paymentTypes = ["Cash", "Credit Card", "iDine Points"]
+    static let pickupTimes = ["Now", "Tonight", "Tomorrow Morning"]
+
     static let tipAmounts = [10, 15, 20, 25, 0]
 
     var totalPrice: Double {
@@ -56,6 +59,14 @@ struct CheckoutView: View {
                         Button("Confirm order") {
                             self.showingPaymentAlert.toggle()
                         }
+            }
+
+            Section() {
+                Picker("What time do you want to pickup?", selection: $pickupTime) {
+                        ForEach(0..<Self.pickupTimes.count) {
+                            Text(Self.pickupTimes[$0])
+                        }
+                    }
             }
 
             .alert(isPresented: $showingPaymentAlert) { () -> Alert in
